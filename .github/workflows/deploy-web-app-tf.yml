@@ -1,9 +1,11 @@
 name: 'Terraform Azure Deployment'
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      sites_markharrisonTF_name:
+        description: "Enter the name of the App Service"
+        required: true
 
 permissions:
   contents: read
@@ -42,9 +44,9 @@ jobs:
 
     # Generate a Terraform execution plan
     - name: Terraform Plan
-      run: terraform plan -input=false
+      run: terraform plan -input=false -var "sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}"
 
     # Apply the Terraform configuration to deploy resources to Azure
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
+      run: terraform apply -auto-approve -input=false -var "sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}"

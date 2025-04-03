@@ -1,13 +1,9 @@
 provider "azurerm" {
   features {}
-  subscription_id = "your_subscription_id"
-  client_id       = "your_client_id"
-  client_secret   = "your_client_secret"
-  tenant_id       = "your_tenant_id"
 }
 
 variable "sites_markharrisonTF_name" {
-  default = "markharrisonTF"
+  description = "The name of the App Service"
 }
 
 variable "serverfarms_TFDeployAppPlan_externalid" {
