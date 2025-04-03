@@ -1,0 +1,1 @@
+az deployment group create --resource-group TFDeploy-rg --template-file arm.json  --parameters sites_markharrisonTF_name=MarkHarrisonTF2 
