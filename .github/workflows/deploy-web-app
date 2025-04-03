@@ -1,0 +1,29 @@
+name: Deploy Web App
+
+on:
+  workflow_dispatch:
+    inputs:
+      sites_markharrisonTF_name:
+        description: "Enter the value for sites_markharrisonTF_name"
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy ARM template
+      run: |
+        az deployment group create \
+          --resource-group TFDeploy-rg \
+          --template-file arm.json \
+          --parameters sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}
+          
