@@ -1,4 +1,4 @@
-name: 'Terraform Azure Deployment'
+name:  Deploy Web App using Terraform
 
 on:
   workflow_dispatch:
