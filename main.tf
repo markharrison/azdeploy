@@ -8,7 +8,7 @@ variable "sites_markharrisonTF_name" {
 }
 
 variable "serverFarms_TFDeployAppPlan_externalid" {
-  default = "/subscriptions/bf0ff2fe-5503-48b0-8b52-cd0e67aa8fd8/resourceGroups/TFDeploy-rg/providers/Microsoft.Web/serverfarms/TFDeployAppPlan"
+  default = "/subscriptions/bf0ff2fe-5503-48b0-8b52-cd0e67aa8fd8/resourceGroups/TFDeploy-rg/providers/Microsoft.Web/serverFarms/TFDeployAppPlan"
 }
 
 resource "azurerm_windows_web_app" "example" {
