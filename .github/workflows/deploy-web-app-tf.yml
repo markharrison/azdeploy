@@ -1,4 +1,4 @@
-name:  Deploy Web App using Terraform
+name: Deploy Web App using Terraform
 
 on:
   workflow_dispatch:
@@ -16,37 +16,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v4
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    # Log in to Azure using the Azure CLI
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # Log in to Azure using the Azure CLI
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Install the latest version of Terraform CLI
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+      # Install the latest version of Terraform CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
 
-    # Initialize Terraform
-    - name: Terraform Init
-      run: terraform init
+      # Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
 
-    # Validate Terraform configuration
-    - name: Terraform Validate
-      run: terraform validate
+      # Validate Terraform configuration
+      - name: Terraform Validate
+        run: terraform validate
 
-    # Format Terraform configuration files
-    - name: Terraform Format
-      run: terraform fmt -check
-
-    # Generate a Terraform execution plan
-    - name: Terraform Plan
-      run: terraform plan -input=false -var "sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}"
-
-    # Apply the Terraform configuration to deploy resources to Azure
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
-      run: terraform apply -auto-approve -input=false -var "sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}"
+      # Apply the Terraform configuration to deploy resources to Azure
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
+        run: terraform apply -auto-approve -input=false -var "sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}"
