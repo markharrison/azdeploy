@@ -38,7 +38,6 @@ resource "azurerm_app_service_custom_hostname_binding" "example" {
 resource "azurerm_windows_web_app_slot" "example" {
   name            = "web"
   app_service_id  = azurerm_windows_web_app.example.id
-  service_plan_id = var.serverFarms_TFDeployAppPlan_externalid
 
   site_config {
     always_on     = false
