@@ -36,8 +36,8 @@ resource "azurerm_app_service_custom_hostname_binding" "example" {
 }
 
 resource "azurerm_windows_web_app_slot" "example" {
-  name            = "web"
-  app_service_id  = azurerm_windows_web_app.example.id
+  name           = "web"
+  app_service_id = azurerm_windows_web_app.example.id
 
   site_config {
     always_on     = false
