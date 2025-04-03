@@ -1,3 +1,13 @@
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "TFDeploy-rg" # Replace with your resource group name
+    storage_account_name = "marktfstorage" # Replace with your storage account name
+    container_name       = "tfstate" # Replace with your container name
+    key                  = "terraform.tfstate"
+  }
+}
+
+
 provider "azurerm" {
   features {}
   subscription_id = "bf0ff2fe-5503-48b0-8b52-cd0e67aa8fd8"
@@ -34,3 +44,4 @@ resource "azurerm_app_service_custom_hostname_binding" "example" {
   app_service_name    = azurerm_windows_web_app.example.name
   resource_group_name = "TFDeploy-rg"
 }
+
