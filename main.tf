@@ -15,7 +15,7 @@ resource "azurerm_windows_web_app" "example" {
   name                = var.sites_markharrisonTF_name
   location            = "UK South"
   resource_group_name = "TFDeploy-rg"
-  service_plan_id     = var.serverFarms_TFDeployAppPlan_externalid  
+  service_plan_id     = var.serverFarms_TFDeployAppPlan_externalid
 
   site_config {
     always_on     = false
