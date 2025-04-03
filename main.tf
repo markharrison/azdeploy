@@ -1,5 +1,6 @@
 provider "azurerm" {
   features {}
+  subscription_id = "bf0ff2fe-5503-48b0-8b52-cd0e67aa8fd8"
 }
 
 variable "sites_markharrisonTF_name" {
