@@ -8,11 +8,14 @@ on:
         required: true
 
 permissions:
-  contents: read
+  id-token: write    
+  contents: read     
+  
 
 jobs:
   terraform:
     name: 'Terraform Azure Deployment'
+    environment: 'production'
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +27,10 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}   
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}   
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  
+          enable-AzPSSession: true
 
       # Install the latest version of Terraform CLI
       - name: Setup Terraform
