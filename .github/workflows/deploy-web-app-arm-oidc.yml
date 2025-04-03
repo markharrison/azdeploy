@@ -1,4 +1,4 @@
-name: Deploy Web App using ARM
+name: Deploy Web App using ARM and OIDC
 
 on:
   workflow_dispatch:

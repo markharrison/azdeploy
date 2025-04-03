@@ -37,5 +37,3 @@ resource "azurerm_windows_web_app" "example" {
     "hidden-link: /app-insights-conn-string"         = "InstrumentationKey=4e80f63d-cd54-4e3a-8047-2f70716df488;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/;ApplicationId=1b24cca6-36e8-4dbb-a26e-7f4e14e5bcf6"
   }
 }
-
-# Removed the explicit azurerm_app_service_custom_hostname_binding resource

@@ -1,4 +1,4 @@
-name: Deploy Web App using Terraform
+name: Deploy Web App using Terraform and OIDC
 
 on:
   workflow_dispatch:
