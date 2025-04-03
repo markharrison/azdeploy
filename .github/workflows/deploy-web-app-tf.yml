@@ -43,35 +43,3 @@ jobs:
         id: apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         run: terraform apply -auto-approve -input=false -var "sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}"
-
-      # Import existing hostname binding (if needed)
-      - name: Import Hostname Binding
-        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && steps.apply.outcome == 'failure'
-        run: |
-          # Set variables
-          RESOURCE_GROUP="TFDeploy-rg"
-          WEB_APP_NAME="${{ github.event.inputs.sites_markharrisonTF_name }}"
-          HOSTNAME="$WEB_APP_NAME.azurewebsites.net"
-          AZURE_SUBSCRIPTION_ID=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r .subscriptionId)
-          RESOURCE_ID="/subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.Web/sites/$WEB_APP_NAME/hostNameBindings/$HOSTNAME"
-          TF_RESOURCE_NAME="azurerm_app_service_custom_hostname_binding.example"
-
-          # Check if the hostname binding exists using Azure CLI
-          if az resource show --ids "$RESOURCE_ID" --query "id" --output tsv &>/dev/null; then
-            echo "Hostname binding exists in Azure."
-
-            # Check if the resource is already in Terraform state
-            if ! terraform state show "$TF_RESOURCE_NAME" &>/dev/null; then
-              echo "Hostname binding is not in Terraform state, importing..."
-              terraform import "$TF_RESOURCE_NAME" "$RESOURCE_ID"
-            else
-              echo "Hostname binding already managed by Terraform."
-            fi
-          else
-            echo "Hostname binding does not exist in Azure."
-          fi
-
-      # Apply Terraform Configuration again
-      - name: Terraform Apply Again
-        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && steps.apply.outcome == 'failure'
-        run: terraform apply -auto-approve -input=false -var "sites_markharrisonTF_name=${{ github.event.inputs.sites_markharrisonTF_name }}"

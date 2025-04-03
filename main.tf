@@ -1,12 +1,11 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "TFDeploy-rg" # Replace with your resource group name
-    storage_account_name = "marktfstorage" # Replace with your storage account name
-    container_name       = "tfstate" # Replace with your container name
+    resource_group_name  = "TFDeploy-rg"
+    storage_account_name = "marktfstorage"
+    container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }
 }
-
 
 provider "azurerm" {
   features {}
@@ -39,9 +38,4 @@ resource "azurerm_windows_web_app" "example" {
   }
 }
 
-resource "azurerm_app_service_custom_hostname_binding" "example" {
-  hostname            = "${var.sites_markharrisonTF_name}.azurewebsites.net"
-  app_service_name    = azurerm_windows_web_app.example.name
-  resource_group_name = "TFDeploy-rg"
-}
-
+# Removed the explicit azurerm_app_service_custom_hostname_binding resource
